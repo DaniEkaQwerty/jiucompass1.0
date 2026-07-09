@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JIUCompass — Your Whole Campus Life, Navigated.</title>
+  <meta name="description" content="The ultimate digital companion for Jakarta International University students. Connect with verified peers, share study materials, and navigate campus life in one trusted place." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="logo-navy.png" />
+  <link rel="stylesheet" href="landing.css" />
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="nav">
+    <div class="wrap nav__in">
+      <a class="logo" href="index.html" aria-label="JIUCompass home">
+        <img class="logo__img" src="logo-navy.png" alt="" width="34" height="34" />
+        <span class="logo__name">JIUCompass</span>
+      </a>
+
+      <nav class="nav__links" aria-label="Page sections">
+        <!-- <a href="#features">Features</a>
+        <a href="#directory">Directory</a>
+        <a href="#materials">Materials</a>
+        <a href="#community">Community</a> -->
+      </nav>
+
+      <div class="nav__right">
+        <!-- <button class="nav__search" type="button" aria-label="Search" onclick="toast('Search lives inside the app — log in to try it')">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button> -->
+        <button class="btn btn--navy" type="button" data-open-auth="login">Login</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="wrap hero__in">
+      <div class="hero__copy">
+        <p class="hero__badge"><i aria-hidden="true"></i>Verified by JIU students</p>
+
+        <h1 class="hero__title">Your Whole<br />Campus Life,<br /><em>Navigated.</em></h1>
+
+        <p class="hero__lede">
+          The ultimate digital companion for Jakarta International University
+          students. Connect with verified peers, share study materials, and
+          find everything you need in one trusted place.
+        </p>
+
+        <div class="hero__actions">
+          <button class="btn btn--solid" type="button" data-open-auth="register">
+            Get Started with JIU Email <span aria-hidden="true">→</span>
+          </button>
+          <!-- <a class="btn btn--soft" href="app.html">Explore Marketplace</a> -->
+        </div>
+      </div>
+
+        <div class="hero__card">
+          <article class="idcard" aria-label="Example verified student profile">
+            <div class="idcard__top">
+              <span>Your ID</span>
+            </div>
+            <div class="idcard__avatar">JIU</div>
+            <h2 class="idcard__name">Jakarta International University</h2>
+            <p class="idcard__meta">Est · Batch 2018</p>
+            <div class="idcard__tags">
+              <span class="idcard__tag">love</span>
+              <span class="idcard__tag">integrity</span>
+              <span class="idcard__tag">faithfulness</span>
+              <span class="idcard__tag">excellence</span>
+            </div>
+            <hr class="idcard__rule" />
+            <div class="idcard__foot">
+              <span class="idcard__verified"><span class="idcard__dot"></span>verified</span>
+              <span class="idcard__bars" aria-hidden="true">
+                <i style="height:40%"></i><i style="height:70%"></i>
+                <i style="height:55%"></i><i style="height:100%"></i>
+                <i style="height:45%"></i>
+              </span>
+            </div>
+          </article>
+        </div>
+
+
+
+    </div>
+  </section>
+
+  <!-- ===================== FEATURES ===================== -->
+  <section class="features" id="features">
+    <div class="wrap">
+      <div class="features__head">
+        <h2 class="features__title">Built for the JIU Way</h2>
+        <p class="features__sub">
+          A comprehensive ecosystem designed to make every aspect of campus
+          life smoother, safer, and more connected.
+        </p>
+      </div>
+
+      <div class="bento">
+        <!-- Profile Verification -->
+        <article class="card card--wide" id="verification">
+          <div class="card__top">
+            <span class="card__icon card__icon--green" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </span>
+            <span class="card__pill">Trusted</span>
+          </div>
+          <h3 class="card__title">Profile Verification</h3>
+          <p class="card__body">
+            Exclusive access for students with <b>@jiu.ac.id</b> emails. Our
+            mandatory university verification eliminates fake accounts and
+            keeps every interaction safe and authentic.
+          </p>
+          <div class="avatars" aria-label="Some of the verified students already on JIUCompass">
+            <span>DP</span><span>RN</span><span>FA</span><span class="avatars__more">+128</span>
+          </div>
+        </article>
+
+        <!-- Smart Directory -->
+        <article class="card card--navy" id="directory">
+          <span class="card__icon card__icon--ondark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </span>
+          <h3 class="card__title">Smart Directory</h3>
+          <p class="card__body">
+            Find exactly who you're looking for. Filter by major, graduation
+            year, or specific interests to build your dream team.
+          </p>
+          <div class="card__cta">
+            <button class="btn btn--solid" type="button" data-open-auth="register">
+              Join JIUCompass Now
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Study Materials -->
+        <article class="card" id="materials">
+          <span class="card__icon card__icon--gold" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          </span>
+          <h3 class="card__title">Study Materials</h3>
+          <p class="card__body">
+            Never lose a handout again. Access a shared library of notes,
+            summaries, and past exam questions from every department.
+          </p>
+          <div class="progress" role="img" aria-label="1,240 files shared this semester — well past the halfway goal">
+            <span class="progress__bar"><i style="width:62%"></i></span>
+            <span class="progress__cap">1,240 files shared this semester</span>
+          </div>
+        </article>
+
+        <!-- Q&A Community -->
+        <article class="card card--tint card--wide" id="community">
+          <div class="card__split">
+            <div>
+              <span class="card__icon card__icon--purple" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              </span>
+              <h3 class="card__title">Q&amp;A Community</h3>
+              <p class="card__body">
+                Stuck on a question? Post it to the JIU community and get
+                answers from seniors and classmates who've actually taken the
+                class — help in real time.
+              </p>
+            </div>
+            <div class="chat" aria-hidden="true">
+              <p>"Anyone got Calc II past papers?" 🙏</p>
+              <p class="chat__reply">"Just uploaded mine — check the Vault!" 📎</p>
+              <p>"How's the Stats midterm?" 👀</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="cta-section">
+    <div class="wrap">
+      <div class="cta">
+        <h2 class="cta__title">Ready to master your<br />campus life?</h2>
+        <p class="cta__body">
+          Join thousands of your peers who are already using JIUCompass to
+          navigate their academic journey.
+        </p>
+        <button class="btn btn--solid" type="button" data-open-auth="register">
+          Join JIUCompass Now <span aria-hidden="true">🎓</span>
+        </button>
+        <p class="cta__note">Free forever for verified JIU students</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="wrap footer__in">
+      <img class="logo__img logo__img--sm" src="logo-white.png" alt="JIU Compass" width="28" height="28" />
+      <span>© 2026 <b>JIUCompass</b> · Made by JIU students, for JIU students</span>
+    </div>
+  </footer>
+
+  <!-- ===================== AUTH POPUP ===================== -->
+  <div class="modal" id="authModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close-auth></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-label="Log in or create your account">
+      <button class="modal__close" type="button" data-close-auth aria-label="Close">&times;</button>
+
+      <div class="auth-modal">
+        <!-- brand side with live-updating ID card -->
+        <section class="auth-modal__brand">
+          <div>
+            <a class="logo" href="index.html" aria-label="JIUCompass home">
+              <img class="logo__img logo__img--sm" src="logo-white.png" alt="" width="28" height="28" />
+              <span class="logo__name">JIUCompass</span>
+            </a>
+            <h2 class="auth__pitch">Your student ID, <em>reimagined.</em></h2>
+            <ul class="auth__points">
+              <li><span class="tick">✓</span> One verified identity across notes, chat &amp; marketplace</li>
+              <li><span class="tick">✓</span> Only @jiu.ac.id emails — no strangers, no spam</li>
+              <li><span class="tick">✓</span> Find classmates by major, batch, and interests</li>
+            </ul>
+          </div>
+
+          <div class="preview-wrap">
+            <p class="label-mono" style="margin-bottom:12px">Live preview</p>
+            <article class="idcard" aria-label="Live preview of your student ID">
+              <div class="idcard__top"><span>Student ID</span><span id="pvNo">No. 0000</span></div>
+              <div class="idcard__avatar" id="pvAvatar">?</div>
+              <h2 class="idcard__name" id="pvName">Your Name</h2>
+              <p class="idcard__meta" id="pvMeta">Major · Batch —</p>
+              <div class="idcard__tags" id="pvTags"><span class="idcard__tag">interests</span></div>
+              <hr class="idcard__rule" />
+              <div class="idcard__foot">
+                <span class="idcard__verified" id="pvStatus" style="color:#a9adcc">
+                  <span class="idcard__dot" style="background:#d8dbec"></span>not verified
+                </span>
+                <span class="idcard__bars" aria-hidden="true">
+                  <i style="height:40%"></i><i style="height:70%"></i>
+                  <i style="height:55%"></i><i style="height:100%"></i><i style="height:45%"></i>
+                </span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- form side -->
+        <section class="auth-modal__form">
+          <div class="formcard" style="width:100%;max-width:none">
+            <div class="tabs" role="tablist" aria-label="Login or register">
+              <button class="tab" id="tab-login"    role="tab" aria-selected="false" aria-controls="panel-login" type="button">Log in</button>
+              <button class="tab" id="tab-register" role="tab" aria-selected="true"  aria-controls="panel-register" type="button">Create account</button>
+            </div>
+
+            <!-- LOGIN PANEL -->
+            <div id="panel-login" role="tabpanel" aria-labelledby="tab-login" hidden>
+              <p class="formcard__kicker">Welcome back</p>
+              <h2 class="formcard__title">Log in to JIUCompass</h2>
+              <p class="formcard__sub">Use the campus email you verified with.</p>
+              <form id="loginForm" novalidate>
+                <div class="field field--email">
+                  <label for="loginEmail">Campus email</label>
+                  <input class="input" type="text" id="loginEmail" placeholder="raka.adiwijaya" autocomplete="username" />
+                  <span class="suffix">@jiu.ac.id</span>
+                </div>
+                <div class="field">
+                  <label for="loginPass">Password</label>
+                  <input class="input" type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" />
+                </div>
+                <div style="text-align:right;margin:-6px 0 18px;">
+                  <span class="link" onclick="toast('Password reset link sent (mock)')">Forgot password?</span>
+                </div>
+                <button class="btn btn--solid btn--block" type="submit">Log in</button>
+              </form>
+              <div class="divider">or</div>
+              <button class="btn btn--ghost btn--block" style="color:var(--ink);border-color:#dee1ef" type="button" onclick="toast('SSO is a mock in this prototype')">Continue with JIU Single Sign-On</button>
+              <p class="formcard__foot">New here? <span class="link" data-goto="register">Create an account</span></p>
+            </div>
+
+            <!-- REGISTER PANEL -->
+            <div id="panel-register" role="tabpanel" aria-labelledby="tab-register">
+              <p class="formcard__kicker">Join the pilot</p>
+              <h2 class="formcard__title">Create your account</h2>
+              <p class="formcard__sub">Fill this in and watch your student ID build itself.</p>
+              <form id="registerForm" novalidate>
+                <div class="field">
+                  <label for="fullName">Full name</label>
+                  <input class="input" type="text" id="fullName" placeholder="Raka Adiwijaya" autocomplete="name" />
+                </div>
+                <div class="field field--email">
+                  <label for="regEmail">Campus email</label>
+                  <input class="input" type="text" id="regEmail" placeholder="raka.adiwijaya" autocomplete="email" />
+                  <span class="suffix">@jiu.ac.id</span>
+                  <p class="hint" id="emailHint">Only @jiu.ac.id addresses can register.</p>
+                </div>
+                <div class="row">
+                  <div class="field">
+                    <label for="major">Major</label>
+                    <select class="select" id="major">
+                      <option value="" disabled selected>Choose…</option>
+                      <option>Computer Science</option>
+                      <option>Information Systems</option>
+                      <option>Business Management</option>
+                      <option>Communications</option>
+                      <option>Design</option>
+                      <option>Law</option>
+                      <option>Psychology</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="batch">Batch</label>
+                    <select class="select" id="batch">
+                      <option value="" disabled selected>Year…</option>
+                      <option>2026</option><option>2025</option>
+                      <option>2024</option><option>2023</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="interests">Interests <span style="text-transform:none;letter-spacing:0;color:#a9adcc">(comma separated, up to 3)</span></label>
+                  <input class="input" type="text" id="interests" placeholder="photography, basketball, ui/ux" />
+                </div>
+                <div class="field">
+                  <label for="regPass">Password</label>
+                  <input class="input" type="password" id="regPass" placeholder="At least 8 characters" autocomplete="new-password" />
+                </div>
+                <button class="btn btn--solid btn--block" type="submit">Create account &amp; verify email</button>
+                <p class="hint" style="text-align:center;margin-top:12px">We'll email a 6-digit code to confirm it's really you.</p>
+              </form>
+              <p class="formcard__foot">Already verified? <span class="link" data-goto="login">Log in</span></p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><span class="dot"></span><span id="toastMsg"></span></div>
+
+
+  <script src="app.js"></script>
+</body>
+</html>
