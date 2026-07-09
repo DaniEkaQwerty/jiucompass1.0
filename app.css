@@ -161,11 +161,14 @@
   display: grid; place-items: center; flex: none;
   border-radius: 50%;
   font-family: var(--serif); font-weight: 700;
-  background: #f3f4fa; color: var(--ink);
+  background: #fff; color: var(--navy-700);
 }
 .avatar--sm { width: 38px; height: 38px; font-size: .9rem; }
 .avatar--md { width: 46px; height: 46px; font-size: 1rem; }
-.avatar--v { border: 2.5px solid var(--green); }
+.avatar--v {
+  border: 2.5px solid var(--green);
+  box-shadow: 0 0 0 3px rgba(74,183,93,.15);
+}
 
 /* ---------------- Content / views ---------------- */
 .content { padding: 30px 34px 60px; }
@@ -207,7 +210,63 @@
 /* ===== Profile view ===== */
 .profilegrid { display: grid; grid-template-columns: 380px 1fr; gap: 26px; align-items: start; }
 .profilegrid .idcard { transform: none; width: 100%; }
-.profilegrid .idcard__avatar { width: 84px; height: 84px; font-size: 1.7rem; }
+.profilegrid .idcard__avatar {
+  width: 88px; height: 88px; font-size: 1.8rem;
+  background: #fff;
+  color: var(--navy-700);
+  border: 3.5px solid var(--green);
+  box-shadow: 0 0 0 6px rgba(74,183,93,.13);
+}
+
+/* avatar upload wrapper */
+.avatar-upload {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 50%;
+  margin: 24px 0 20px;
+}
+/* remove the default margin from the avatar when it's inside the label */
+.avatar-upload .idcard__avatar {
+  margin: 0;
+  transition: filter .2s ease;
+}
+.avatar-upload:hover .idcard__avatar { filter: brightness(.72); }
+
+.avatar-upload__overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: #fff;
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity .2s ease;
+  pointer-events: none;
+}
+.avatar-upload:hover .avatar-upload__overlay { opacity: 1; }
+
+/* top-bar + sidebar avatars: white bg, green ring, dark ink — handled by .avatar and .avatar--v above */
+
+/* Edit profile button — gold pill */
+#view-profile .btn--solid {
+  background: var(--gold);
+  color: #33290a;
+  border-radius: 999px;
+  font-weight: 700;
+  padding: 13px 28px;
+}
+#view-profile .btn--solid:hover {
+  background: #d4a91a;
+  transform: translateY(-1px);
+}
 
 .panel {
   background: rgba(255,255,255,.02);

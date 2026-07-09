@@ -230,7 +230,7 @@
           <div class="preview-wrap">
             <p class="label-mono" style="margin-bottom:12px">Live preview</p>
             <article class="idcard" aria-label="Live preview of your student ID">
-              <div class="idcard__top"><span>Student ID</span><span id="pvNo">No. 0000</span></div>
+              <div class="idcard__top"><span>Student</span><span id="pvBirthday">🎂 —</span></div>
               <div class="idcard__avatar" id="pvAvatar">?</div>
               <h2 class="idcard__name" id="pvName">Your Name</h2>
               <p class="idcard__meta" id="pvMeta">Major · Batch —</p>
@@ -265,7 +265,7 @@
               <form id="loginForm" novalidate>
                 <div class="field field--email">
                   <label for="loginEmail">Campus email</label>
-                  <input class="input" type="text" id="loginEmail" placeholder="raka.adiwijaya" autocomplete="username" />
+                  <input class="input" type="text" id="loginEmail" placeholder="yourname" autocomplete="username" />
                   <span class="suffix">@jiu.ac.id</span>
                 </div>
                 <div class="field">
@@ -290,11 +290,11 @@
               <form id="registerForm" novalidate>
                 <div class="field">
                   <label for="fullName">Full name</label>
-                  <input class="input" type="text" id="fullName" placeholder="Raka Adiwijaya" autocomplete="name" />
+                  <input class="input" type="text" id="fullName" placeholder="e.g. Sinta Maharani" autocomplete="name" />
                 </div>
                 <div class="field field--email">
                   <label for="regEmail">Campus email</label>
-                  <input class="input" type="text" id="regEmail" placeholder="raka.adiwijaya" autocomplete="email" />
+                  <input class="input" type="text" id="regEmail" placeholder="yourname" autocomplete="email" />
                   <span class="suffix">@jiu.ac.id</span>
                   <p class="hint" id="emailHint">Only @jiu.ac.id addresses can register.</p>
                 </div>
@@ -303,13 +303,12 @@
                     <label for="major">Major</label>
                     <select class="select" id="major">
                       <option value="" disabled selected>Choose…</option>
-                      <option>Computer Science</option>
+                      <option>Accounting</option>
+                      <option>English Literature</option>
                       <option>Information Systems</option>
-                      <option>Business Management</option>
-                      <option>Communications</option>
-                      <option>Design</option>
-                      <option>Law</option>
-                      <option>Psychology</option>
+                      <option>IT</option>
+                      <option>Japanese Literature</option>
+                      <option>Visual Communication Design</option>
                     </select>
                   </div>
                   <div class="field">
@@ -324,6 +323,10 @@
                 <div class="field">
                   <label for="interests">Interests <span style="text-transform:none;letter-spacing:0;color:#a9adcc">(comma separated, up to 3)</span></label>
                   <input class="input" type="text" id="interests" placeholder="photography, basketball, ui/ux" />
+                </div>
+                <div class="field">
+                  <label for="birthday">Birthday <span style="text-transform:none;letter-spacing:0;color:#a9adcc">(day and month, e.g. 15 March)</span></label>
+                  <input class="input" type="text" id="birthday" placeholder="15 March" autocomplete="bday" />
                 </div>
                 <div class="field">
                   <label for="regPass">Password</label>

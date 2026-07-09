@@ -286,9 +286,10 @@ a { color: inherit; text-decoration: none; }
   font-family: var(--serif);
   font-weight: 700;
   font-size: 1.5rem;
-  color: var(--ink);
-  background: #f3f4fa;
+  color: var(--navy-700);
+  background: #fff;
   border: 3px solid var(--green);
+  box-shadow: 0 0 0 5px rgba(74,183,93,.12);
 }
 .idcard__name {
   font-family: var(--serif);

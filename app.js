@@ -80,13 +80,14 @@
   var major = document.getElementById("major");
   var batch = document.getElementById("batch");
   var interests = document.getElementById("interests");
+  var birthday = document.getElementById("birthday");
 
   var pvName = document.getElementById("pvName");
   var pvMeta = document.getElementById("pvMeta");
   var pvAvatar = document.getElementById("pvAvatar");
   var pvTags = document.getElementById("pvTags");
   var pvStatus = document.getElementById("pvStatus");
-  var pvNo = document.getElementById("pvNo");
+  var pvBirthday = document.getElementById("pvBirthday");
   var emailHint = document.getElementById("emailHint");
 
   function initials(full) {
@@ -95,12 +96,6 @@
     if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
     return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
   }
-  function mockNo(full) {
-    if (!full.trim()) return "No. 0000";
-    var sum = 0;
-    for (var i = 0; i < full.length; i++) sum = (sum + full.charCodeAt(i) * (i + 1)) % 9000;
-    return "No. " + String(1000 + sum).slice(0, 4);
-  }
   function emailLooksValid(v) { return /^[a-z0-9._-]{2,}$/i.test(v.trim()); }
 
   function render() {
@@ -108,7 +103,8 @@
     var nm = (name.value || "").trim();
     pvName.textContent = nm || "Your Name";
     pvAvatar.textContent = initials(nm);
-    pvNo.textContent = mockNo(nm);
+    var bd = (birthday && birthday.value || "").trim();
+    pvBirthday.textContent = bd ? "🎂 " + bd : "🎂 —";
     var mj = major.value || "Major";
     var bt = batch.value ? "Batch " + batch.value : "Batch —";
     pvMeta.textContent = mj + " · " + bt;
@@ -131,7 +127,7 @@
     }
   }
 
-  [name, email, major, batch, interests].forEach(function (el) {
+  [name, email, major, batch, interests, birthday].forEach(function (el) {
     if (el) { el.addEventListener("input", render); el.addEventListener("change", render); }
   });
   render();
@@ -154,9 +150,41 @@
   var loginForm = document.getElementById("loginForm");
   if (loginForm) loginForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    var v = document.getElementById("loginEmail").value.trim();
-    var p = document.getElementById("loginPass").value;
-    if (!v || !p) { toast("Enter your campus email and password"); return; }
+    var handle = document.getElementById("loginEmail").value.trim();
+    var pass = document.getElementById("loginPass").value;
+    if (!handle) { toast("Enter your campus email"); return; }
+    if (!pass) { toast("Enter your password"); return; }
+
+    /* check if a registered account exists in localStorage */
+    var stored = null;
+    try { stored = JSON.parse(localStorage.getItem("jiuUser") || "null"); } catch(err) {}
+
+    if (stored && stored.emailHandle) {
+      /* account found — validate email match */
+      if (stored.emailHandle.toLowerCase() !== handle.toLowerCase()) {
+        toast("No account found for " + handle + "@jiu.ac.id");
+        return;
+      }
+      /* password check: stored password must match (if saved), otherwise allow */
+      if (stored.password && stored.password !== pass) {
+        toast("Wrong password — try again");
+        return;
+      }
+    } else {
+      /* no registered account — create a minimal session from the email handle */
+      try {
+        localStorage.setItem("jiuUser", JSON.stringify({
+          name: handle.replace(/[._]/g, " ").replace(/\b\w/g, function(c){ return c.toUpperCase(); }),
+          email: handle + "@jiu.ac.id",
+          emailHandle: handle,
+          major: "",
+          batch: "",
+          birthday: "",
+          interests: []
+        }));
+      } catch(err) {}
+    }
+
     toast("Logged in — opening JIUCompass…");
     setTimeout(function () { location.href = "app.html"; }, 900);
   });
@@ -169,6 +197,19 @@
     if (!major.value) { toast("Pick your major"); major.focus(); return; }
     if (!batch.value) { toast("Pick your batch"); batch.focus(); return; }
     if ((document.getElementById("regPass").value || "").length < 8) { toast("Password needs 8+ characters"); return; }
+    /* save user data so app.html can personalise the experience */
+    try {
+      localStorage.setItem("jiuUser", JSON.stringify({
+        name: name.value.trim(),
+        email: email.value.trim() + "@jiu.ac.id",
+        emailHandle: email.value.trim(),
+        major: major.value,
+        batch: batch.value,
+        birthday: (birthday && birthday.value.trim()) || "",
+        interests: (document.getElementById("interests").value || "").split(",").map(function(s){return s.trim();}).filter(Boolean).slice(0,3),
+        password: document.getElementById("regPass").value
+      }));
+    } catch(e) {}
     toast("Verified! Setting up your campus…");
     setTimeout(function () { location.href = "app.html"; }, 1100);
   });

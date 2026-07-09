@@ -28,9 +28,37 @@
   };
   var $ = function (id) { return document.getElementById(id); };
 
+  /* ---------- Load current user from localStorage (set by auth/register) ---------- */
+  var me = (function () {
+    try {
+      var stored = JSON.parse(localStorage.getItem("jiuUser") || "{}");
+      return {
+        name: stored.name || "You",
+        email: stored.email || "you@jiu.ac.id",
+        emailHandle: stored.emailHandle || "you",
+        major: stored.major || "IT",
+        batch: stored.batch || "2026",
+        birthday: stored.birthday || "",
+        interests: Array.isArray(stored.interests) && stored.interests.length ? stored.interests : ["interests"]
+      };
+    } catch (e) {
+      return { name: "You", email: "you@jiu.ac.id", emailHandle: "you", major: "IT", batch: "2026", birthday: "", interests: ["interests"] };
+    }
+  })();
+
+  /* derive a consistent hue from any name string for avatar background */
+  function nameColor(name) {
+    var palette = [
+      "#5c6bc0","#26a69a","#ef5350","#ab47bc","#42a5f5",
+      "#66bb6a","#ffa726","#ec407a","#78909c","#8d6e63"
+    ];
+    var hash = 0;
+    for (var i = 0; i < name.length; i++) hash = (hash + name.charCodeAt(i) * (i + 1)) | 0;
+    return palette[Math.abs(hash) % palette.length];
+  }
+
   /* ---------- example photos (fall back to initials if offline) ---------- */
   var photos = {
-    "Raka Adiwijaya":  "https://randomuser.me/api/portraits/men/32.jpg",
     "Sinta Maharani":  "https://randomuser.me/api/portraits/women/44.jpg",
     "Bagas Pratama":   "https://randomuser.me/api/portraits/men/22.jpg",
     "Nadia Kusuma":    "https://randomuser.me/api/portraits/women/68.jpg",
@@ -50,22 +78,22 @@
     var img = photos[name]
       ? '<img src="' + photos[name] + '" alt="" loading="lazy" onerror="this.remove()">'
       : "";
-    return '<span class="avatar ' + (cls || "avatar--sm") + ' avatar--v' + (img ? " avatar--img" : "") + '">' +
+    var color = nameColor(name);
+    return '<span class="avatar ' + (cls || "avatar--sm") + ' avatar--v' + (img ? " avatar--img" : "") + '" style="background:' + color + ';--av-bg:' + color + '">' +
       esc(initials(name)) + img + "</span>";
   };
 
   /* ================= MOCK DATA ================= */
   var people = [
-    { name: "Raka Adiwijaya", major: "Computer Science", batch: "2026", tags: ["photography","basketball","ui/ux"] },
-    { name: "Sinta Maharani", major: "Design", batch: "2026", tags: ["illustration","typography","coffee"] },
-    { name: "Bagas Pratama", major: "Business Management", batch: "2025", tags: ["startups","football","finance"] },
-    { name: "Nadia Kusuma", major: "Communications", batch: "2026", tags: ["podcasts","writing","film"] },
-    { name: "Farrel Wijaya", major: "Computer Science", batch: "2024", tags: ["backend","chess","anime"] },
-    { name: "Alya Rahmawati", major: "Psychology", batch: "2025", tags: ["research","volunteering","music"] },
-    { name: "Dimas Nugroho", major: "Information Systems", batch: "2026", tags: ["data","gaming","ui/ux"] },
-    { name: "Kirana Putri", major: "Law", batch: "2023", tags: ["debate","reading","tennis"] },
-    { name: "Yoga Saputra", major: "Design", batch: "2025", tags: ["3d","photography","sneakers"] },
-    { name: "Melati Anggraini", major: "Business Management", batch: "2026", tags: ["marketing","travel","baking"] }
+    { name: "Sinta Maharani",  major: "Visual Communication Design", batch: "2026", birthday: "3 April",   tags: ["illustration","typography","coffee"] },
+    { name: "Bagas Pratama",   major: "Accounting",                  batch: "2025", birthday: "17 June",   tags: ["startups","football","finance"] },
+    { name: "Nadia Kusuma",    major: "English Literature",           batch: "2026", birthday: "21 August", tags: ["podcasts","writing","film"] },
+    { name: "Farrel Wijaya",   major: "IT",                          batch: "2024", birthday: "9 January",  tags: ["backend","chess","anime"] },
+    { name: "Alya Rahmawati",  major: "Japanese Literature",          batch: "2025", birthday: "30 May",    tags: ["research","volunteering","music"] },
+    { name: "Dimas Nugroho",   major: "Information Systems",          batch: "2026", birthday: "12 July",   tags: ["data","gaming","ui/ux"] },
+    { name: "Kirana Putri",    major: "English Literature",           batch: "2023", birthday: "5 October", tags: ["debate","reading","tennis"] },
+    { name: "Yoga Saputra",    major: "Visual Communication Design", batch: "2025", birthday: "22 February",tags: ["3d","photography","sneakers"] },
+    { name: "Melati Anggraini",major: "Accounting",                  batch: "2026", birthday: "14 March",  tags: ["marketing","travel","baking"] }
   ];
 
   /* Academic Vault materials */
@@ -93,7 +121,7 @@
 
   var questions = [
     { q: "How do I access the CS lab computers after hours?", tags: ["campus","cs-dept"], answers: 4, votes: 12, by: "Nadia Kusuma", when: "2h ago", solved: true },
-    { q: "Best elective to pair with Data Structures in batch 2026?", tags: ["cs201","electives"], answers: 7, votes: 21, by: "Raka Adiwijaya", when: "5h ago", solved: true },
+    { q: "Best elective to pair with Data Structures in batch 2026?", tags: ["cs201","electives"], answers: 7, votes: 21, by: "Dimas Nugroho", when: "5h ago", solved: true },
     { q: "Anyone have the MATH102 midterm study group link?", tags: ["math102","study-group"], answers: 2, votes: 6, by: "Dimas Nugroho", when: "1d ago", solved: false },
     { q: "Is the library open during exam week weekends?", tags: ["library","exams"], answers: 3, votes: 9, by: "Alya Rahmawati", when: "1d ago", solved: true },
     { q: "How does credit transfer work if I switch to Info Systems?", tags: ["academics","transfer"], answers: 1, votes: 4, by: "Yoga Saputra", when: "2d ago", solved: false }
@@ -108,7 +136,7 @@
       img: "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=600&q=60&auto=format&fit=crop" },
     { title: "Scientific calculator", price: "Rp 120.000", cond: "Good", by: "Dimas N.", ico: "\uD83E\uDDEE",
       img: "https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=600&q=60&auto=format&fit=crop" },
-    { title: "Basketball (size 7)", price: "Rp 90.000", cond: "Good", by: "Raka A.", ico: "\uD83C\uDFC0",
+    { title: "Basketball (size 7)", price: "Rp 90.000", cond: "Good", by: "Yoga S.", ico: "\uD83C\uDFC0",
       img: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&q=60&auto=format&fit=crop" },
     { title: "Desk lamp (USB)", price: "Rp 65.000", cond: "Like new", by: "Melati A.", ico: "\uD83D\uDCA1",
       img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&q=60&auto=format&fit=crop" }
@@ -429,6 +457,98 @@
   var start = (location.hash || "").replace("#", "");
   setView(meta[start] ? start : "home");
 
+  /* ================= POPULATE USER UI FROM STORED DATA ================= */
+  (function populateUser() {
+    var nm = me.name || "You";
+    var inits = initials(nm);
+    var color = nameColor(nm);
+    var firstWord = nm.trim().split(/\s+/)[0];
+
+    /* load saved photo if any */
+    var savedPhoto = null;
+    try { savedPhoto = localStorage.getItem("jiuUserPhoto") || null; } catch(e) {}
+
+    function applyAvatar(el, size) {
+      if (!el) return;
+      el.textContent = inits;
+      if (savedPhoto) {
+        el.style.backgroundImage = "url(" + savedPhoto + ")";
+        el.style.backgroundSize = "cover";
+        el.style.backgroundPosition = "center";
+        el.style.background = "transparent";
+        el.style.color = "transparent";
+      } else {
+        el.style.backgroundImage = "";
+        el.style.background = "";   /* fall back to CSS — white + green ring */
+        el.style.color = "";
+      }
+    }
+
+    /* sidebar */
+    var sideAv = $("sideAvatar");
+    applyAvatar(sideAv);
+    var sideNm = $("sideName");
+    if (sideNm) sideNm.textContent = nm;
+    var sideEm = $("sideEmail");
+    if (sideEm) sideEm.textContent = "@" + (me.emailHandle || "you");
+
+    /* top bar */
+    applyAvatar($("topAvatar"));
+
+    /* home greeting */
+    var hello = $("helloTitle");
+    if (hello) hello.textContent = "Welcome back, " + firstWord + "! 👋";
+
+    /* profile card */
+    applyAvatar($("profileAvatar"));
+    var profNm = $("profileName");
+    if (profNm) profNm.textContent = nm;
+    var profMeta = $("profileMeta");
+    if (profMeta) profMeta.textContent = (me.major || "—") + " · Batch " + (me.batch || "—");
+    var profBd = $("profileBirthday");
+    if (profBd) profBd.textContent = me.birthday ? "🎂 " + me.birthday : "🎂 —";
+    var profTags = $("profileTags");
+    if (profTags) {
+      profTags.innerHTML = me.interests.map(function(t) {
+        return '<span class="idcard__tag">' + esc(t) + "</span>";
+      }).join("");
+    }
+
+    /* details panel */
+    var dEm = $("detailEmail");
+    if (dEm) dEm.textContent = me.email || "—";
+    var dMj = $("detailMajor");
+    if (dMj) dMj.textContent = me.major || "—";
+    var dBt = $("detailBatch");
+    if (dBt) dBt.textContent = me.batch ? me.batch + " (Freshman)" : "—";
+    var dBd = $("detailBirthday");
+    if (dBd) dBd.textContent = me.birthday || "—";
+    var dIn = $("detailInterests");
+    if (dIn) dIn.textContent = me.interests.length ? me.interests.map(function(s){return s.charAt(0).toUpperCase()+s.slice(1);}).join(", ") : "—";
+
+    /* ---- photo upload handler ---- */
+    var avatarInput = $("avatarInput");
+    if (avatarInput) {
+      avatarInput.addEventListener("change", function () {
+        var file = this.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          savedPhoto = e.target.result;
+          try { localStorage.setItem("jiuUserPhoto", savedPhoto); } catch(err) {
+            toast("Photo too large to save — will reset on refresh");
+          }
+          /* apply to all avatar elements */
+          applyAvatar($("profileAvatar"));
+          applyAvatar($("sideAvatar"));
+          applyAvatar($("topAvatar"));
+          toast("Profile photo updated!");
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  })();
+
   /* ================= FORM POPUP (upload notes / ask question / sell item) ================= */
   var formModal = $("formModal");
   var lastFocused = null;
@@ -473,7 +593,7 @@
     var file = $("nfFile").files[0];
     var isPdf = /pdf$/i.test(file.name);
     notes.unshift({
-      title: title, course: course, by: "Raka Adiwijaya", up: 0,
+      title: title, course: course, by: me.name, up: 0,
       type: isPdf ? "PDF" : "IMG",
       size: (file.size / (1024 * 1024)).toFixed(1) + " MB",
       when: "Updated just now", catg: "Core Course", year: "2026", ic: "doc"
@@ -499,7 +619,7 @@
     }).filter(Boolean).slice(0, 3);
     questions.unshift({
       q: q, tags: tags.length ? tags : ["general"],
-      answers: 0, votes: 0, by: "Raka Adiwijaya", when: "just now", solved: false
+      answers: 0, votes: 0, by: me.name, when: "just now", solved: false
     });
     renderQA();
     renderHome();
@@ -523,7 +643,7 @@
       market.unshift({
         title: title,
         price: "Rp " + Number(price).toLocaleString("id-ID"),
-        cond: cond, by: "Raka A.", ico: "\uD83D\uDECD\uFE0F", img: imgUrl || null
+        cond: cond, by: initials(me.name).slice(0,1) + esc(me.name.trim().split(/\s+/).pop().slice(0,1)) + ".", ico: "\uD83D\uDECD\uFE0F", img: imgUrl || null
       });
       renderMarket();
       renderHome();

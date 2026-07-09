@@ -638,7 +638,9 @@ img, svg { display: block; }
   flex-direction: column;
   gap: 28px;
   overflow: hidden;
-
+  /* position: sticky;
+  top: 0;
+  border-radius: 22px 0 0 22px; */
 }
 .auth-modal__brand .logo__mark { color: var(--gold); }
 .auth-modal__brand .logo__name { color: var(--text-strong); }

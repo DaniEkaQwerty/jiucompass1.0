@@ -61,8 +61,8 @@
       </nav>
 
       <div class="side__me">
-        <span class="avatar avatar--sm avatar--v">RA</span>
-        <span class="who"><b>Raka Adiwijaya</b><span>@raka.adiwijaya</span></span>
+        <span class="avatar avatar--sm avatar--v" id="sideAvatar">?</span>
+        <span class="who"><b id="sideName">Loading…</b><span id="sideEmail">@jiu.ac.id</span></span>
         <a class="side__logout" href="index.html" title="Log out" aria-label="Log out">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M15 4h3a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-3"/><path d="M10 12H3m0 0 3-3m-3 3 3 3"/></svg>
         </a>
@@ -81,7 +81,7 @@
           <span class="ping"></span>
           <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
         </button>
-        <span class="avatar avatar--md avatar--v">RA</span>
+        <span class="avatar avatar--md avatar--v" id="topAvatar">?</span>
         <a class="iconbtn iconbtn--logout" href="index.html" title="Log out" aria-label="Log out">
           <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M15 4h3a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-3"/><path d="M10 12H3m0 0 3-3m-3 3 3 3"/></svg>
         </a>
@@ -93,7 +93,7 @@
         <section class="view" id="view-home">
           <div class="hello">
             <div>
-              <h2 class="hello__title">Welcome back, Raka! 👋</h2>
+              <h2 class="hello__title" id="helloTitle">Welcome back! 👋</h2>
               <p class="hello__sub">Here's what's happening around campus today.</p>
             </div>
             <button class="btn btn--solid" data-view="directory">Find classmates →</button>
@@ -122,14 +122,19 @@
         <section class="view" id="view-profile">
           <div class="profilegrid">
             <article class="idcard">
-              <div class="idcard__top"><span>Student ID</span><span>No. 0421</span></div>
-              <div class="idcard__avatar">RA</div>
-              <h2 class="idcard__name">Raka Adiwijaya</h2>
-              <p class="idcard__meta">Computer Science · Batch 2026</p>
-              <div class="idcard__tags">
-                <span class="idcard__tag">photography</span>
-                <span class="idcard__tag">basketball</span>
-                <span class="idcard__tag">ui/ux</span>
+              <div class="idcard__top"><span>Student</span><span id="profileBirthday">🎂 —</span></div>
+              <label class="avatar-upload" title="Upload profile photo" aria-label="Upload profile photo">
+                <div class="idcard__avatar" id="profileAvatar">?</div>
+                <div class="avatar-upload__overlay">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                  <span>Change</span>
+                </div>
+                <input type="file" id="avatarInput" accept="image/*" style="display:none" />
+              </label>
+              <h2 class="idcard__name" id="profileName">Your Name</h2>
+              <p class="idcard__meta" id="profileMeta">Major · Batch —</p>
+              <div class="idcard__tags" id="profileTags">
+                <span class="idcard__tag">interests</span>
               </div>
               <hr class="idcard__rule" />
               <div class="idcard__foot">
@@ -151,10 +156,11 @@
               <div class="panel">
                 <h3>Details</h3>
                 <dl class="kv">
-                  <dt>Campus email</dt><dd>raka.adiwijaya@jiu.ac.id</dd>
-                  <dt>Major</dt><dd>Computer Science</dd>
-                  <dt>Batch</dt><dd>2026 (Freshman)</dd>
-                  <dt>Interests</dt><dd>Photography, Basketball, UI/UX</dd>
+                  <dt>Campus email</dt><dd id="detailEmail">—</dd>
+                  <dt>Major</dt><dd id="detailMajor">—</dd>
+                  <dt>Batch</dt><dd id="detailBatch">—</dd>
+                  <dt>Birthday</dt><dd id="detailBirthday">—</dd>
+                  <dt>Interests</dt><dd id="detailInterests">—</dd>
                   <dt>Status</dt><dd style="color:var(--green)">● Verified student</dd>
                 </dl>
                 <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
@@ -163,6 +169,7 @@
               </div>
             </div>
           </div>
+        </section>
         </section>
 
         <!-- ---------- DIRECTORY ---------- -->
