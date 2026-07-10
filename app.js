@@ -2,17 +2,8 @@
 (function () {
   "use strict";
 
-  /* ---------- Toast ---------- */
-  var toastEl = document.getElementById("toast");
-  var toastMsg = document.getElementById("toastMsg");
-  var toastTimer;
-  window.toast = function (msg) {
-    if (!toastEl) return;
-    toastMsg.textContent = msg;
-    toastEl.classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 2600);
-  };
+  /* ---------- Toast (disabled — popup removed per request) ---------- */
+  window.toast = function () {};
 
   /* ---------- Tabs (login / register) ---------- */
   var tabLogin = document.getElementById("tab-login");

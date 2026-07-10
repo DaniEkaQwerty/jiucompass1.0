@@ -64,6 +64,45 @@
   font-weight: 600;
 }
 
+/* "More" popup — holds Course Notes / Marketplace / Campus Updates on
+   narrow screens so nothing is removed, just tucked away, next to
+   Group Chat. Hidden on desktop, where the full list already shows. */
+.navmore { position: relative; display: none; }
+.navmore__menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 200px;
+  padding: 6px;
+  background: linear-gradient(180deg, var(--navy-800), var(--navy-900));
+  border: 1px solid var(--navy-line);
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.5);
+  z-index: 60;
+}
+.navmore__menu[hidden] { display: none; }
+.navmore__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: .84rem;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+.navmore__item svg { width: 18px; height: 18px; flex: none; opacity: .85; }
+.navmore__item:hover { background: rgba(255,255,255,.06); color: var(--text-strong); }
+.navitem--more__icon { width: 19px; height: 19px; flex: none; opacity: .85; object-fit: contain; }
+.navitem--more.is-active .navitem--more__icon,
+.navitem--more:hover .navitem--more__icon { opacity: 1; }
+
 .side__me {
   display: flex;
   align-items: center;
@@ -464,6 +503,18 @@
   .side__brand { padding: 4px 0 18px; }
   .side__brand .brand__name { display: none; }        /* logo badge only */
   .navlist { width: 100%; }
+  /* Course Notes, Q&A, Marketplace, Campus Updates move into the "More" menu */
+  .navitem[data-view="notes"],
+  .navitem[data-view="qa"],
+  .navitem[data-view="marketplace"],
+  .navitem[data-view="updates"] { display: none; }
+  .navmore { display: flex; justify-content: center; }
+  .navmore__menu { left: 100%; top: 0; margin-left: 8px; }
+  .navitem[data-view="home"] { order: 1; }
+  .navitem[data-view="directory"] { order: 2; }
+  .navmore { order: 3; }
+  .navitem[data-view="chat"] { order: 4; }
+  .navitem[data-view="profile"] { order: 5; }
   .navitem {
     justify-content: center;
     gap: 0;
@@ -504,8 +555,20 @@
   }
   .side__brand, .side__me { display: none; }
 
-  /* all 7 icons share the width equally — no sideways scrolling */
+  /* Home, Directory, Group Chat, More, Profile share the width equally */
   .navlist { flex-direction: row; gap: 2px; flex: 1; }
+  .navitem[data-view="notes"],
+  .navitem[data-view="qa"],
+  .navitem[data-view="marketplace"],
+  .navitem[data-view="updates"] { display: none; }
+  .navmore { display: flex; flex: 1 1 0; justify-content: center; }
+  .navmore .navitem--more { width: 100%; }
+  .navmore__menu { left: 50%; bottom: calc(100% + 10px); transform: translateX(-50%); }
+  .navitem[data-view="home"] { order: 1; }
+  .navitem[data-view="directory"] { order: 2; }
+  .navmore { order: 3; }
+  .navitem[data-view="chat"] { order: 4; }
+  .navitem[data-view="profile"] { order: 5; }
   .navitem {
     flex: 1 1 0;
     min-width: 0;
@@ -570,8 +633,6 @@
   .formmodal { padding: 30px 22px 26px; }
   .formmodal .row { grid-template-columns: 1fr; }
 
-  /* keep toasts above the bottom navigation */
-  .toast { bottom: calc(84px + env(safe-area-inset-bottom)); max-width: calc(100vw - 32px); }
 }
 
 @media (max-width: 520px) {
@@ -1059,3 +1120,57 @@
 @media (max-width: 340px) {
   .home__market { grid-template-columns: 1fr 1fr; }
 }
+
+/* =========================================================
+   Light theme for My Profile & Group Chat
+   (matches the cream/paper reference look — cards stay the
+   same, only the surrounding page chrome switches to light)
+   ========================================================= */
+body.theme-light .bg-texture {
+  background-color: #f3f1ea;
+  background-image:
+    radial-gradient(120% 90% at 85% 5%, rgba(120,83,137,.05), transparent 55%),
+    radial-gradient(90% 80% at 5% 95%, rgba(36,45,107,.05), transparent 60%),
+    radial-gradient(rgba(36,45,107,.07) 1px, transparent 1px);
+  background-size: auto, auto, 26px 26px;
+}
+body.theme-light .top {
+  background: rgba(254,254,254,.92);
+  border-bottom: 1px solid #e7e3d6;
+}
+body.theme-light .top__titles h1 { color: var(--ink); }
+body.theme-light .top__titles p { color: var(--ink-soft); }
+body.theme-light .searchbox {
+  background: #fff;
+  border-color: #dee1ef;
+  color: var(--ink-soft);
+}
+body.theme-light .searchbox input { color: var(--ink); }
+body.theme-light .searchbox input::placeholder { color: var(--ink-soft); }
+body.theme-light .iconbtn {
+  border-color: #dee1ef;
+  background: #fff;
+  color: var(--ink-soft);
+}
+body.theme-light .iconbtn:hover { border-color: var(--gold); color: var(--ink); }
+body.theme-light .iconbtn .ping { border-color: #fefefe; }
+
+/* Profile page: Activity + Details cards were still styled for the
+   dark navy background (translucent panel, light text) — switch
+   them to the same paper-card look as the ID card, text only,
+   nothing about the copy or fonts changes. */
+body.theme-light .panel {
+  background: var(--paper);
+  box-shadow: 0 10px 26px rgba(36,45,107,.06);
+  border: 1px solid var(--navy-line);
+  border-radius: var(--radius);
+}
+body.theme-light .panel h3 { color: var(--ink); }
+body.theme-light .stat {
+  background: #f7f8fc;
+  border: 1px solid var(--navy-line);
+}
+body.theme-light .stat b { color: var(--gold-deep); }
+body.theme-light .stat span { color: var(--ink-soft); }
+body.theme-light .kv dt { color: var(--ink-soft); }
+body.theme-light .kv dd { color: var(--ink); }

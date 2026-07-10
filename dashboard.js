@@ -2,16 +2,8 @@
 (function () {
   "use strict";
 
-  /* ---------- toast ---------- */
-  var toastEl = document.getElementById("toast");
-  var toastMsg = document.getElementById("toastMsg");
-  var toastTimer;
-  function toast(msg) {
-    toastMsg.textContent = msg;
-    toastEl.classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 2400);
-  }
+  /* ---------- toast (disabled — popup removed per request) ---------- */
+  function toast() {}
   document.addEventListener("click", function (e) {
     var t = e.target.closest("[data-toast]");
     if (t) toast(t.getAttribute("data-toast"));
@@ -429,6 +421,7 @@
     profile:     ["My Profile", "Your verified student identity across JIUCompass."]
   };
   var rendered = { home: true, profile: true, qa: true, marketplace: true, updates: true };
+  var moreBtn = $("moreBtn");
   function setView(id) {
     document.querySelectorAll(".navitem").forEach(function (n) {
       n.classList.toggle("is-active", n.getAttribute("data-view") === id);
@@ -436,6 +429,8 @@
     document.querySelectorAll(".view").forEach(function (v) {
       v.hidden = v.id !== "view-" + id;
     });
+    document.body.classList.toggle("theme-light", id === "profile" || id === "chat");
+    if (moreBtn) moreBtn.classList.toggle("is-active", id === "notes" || id === "qa" || id === "marketplace" || id === "updates");
     $("pageTitle").textContent = meta[id][0];
     $("pageSub").textContent = meta[id][1];
     if (!rendered[id]) {
@@ -452,6 +447,35 @@
     var b = e.target.closest("[data-view]");
     if (b) setView(b.getAttribute("data-view"));
   });
+
+  /* ---------- "More" nav popup (Course Notes / Marketplace / Campus Updates) ---------- */
+  var navMore = $("navMore"), moreMenu = $("moreMenu");
+  if (moreBtn && moreMenu && navMore) {
+    moreBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var willOpen = moreMenu.hidden;
+      moreMenu.hidden = !willOpen;
+      moreBtn.setAttribute("aria-expanded", String(willOpen));
+    });
+    moreMenu.addEventListener("click", function (e) {
+      if (e.target.closest("[data-view]")) {
+        moreMenu.hidden = true;
+        moreBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+    document.addEventListener("click", function (e) {
+      if (!moreMenu.hidden && !navMore.contains(e.target)) {
+        moreMenu.hidden = true;
+        moreBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !moreMenu.hidden) {
+        moreMenu.hidden = true;
+        moreBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
 
   renderHome();
   var start = (location.hash || "").replace("#", "");
