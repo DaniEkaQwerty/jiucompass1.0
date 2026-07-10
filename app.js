@@ -2,8 +2,37 @@
 (function () {
   "use strict";
 
-  /* ---------- Toast (disabled — popup removed per request) ---------- */
-  window.toast = function () {};
+  /* ---------- Inline form notice (replaces the old toast popup) ----------
+     Shows validation messages INSIDE the open form card instead of a
+     floating popup, so users always get feedback when a submit is blocked. */
+  var noticeStyle = document.createElement("style");
+  noticeStyle.textContent =
+    ".form-notice{display:block;margin:0 0 14px;padding:10px 14px;border-radius:10px;" +
+    "font-size:13.5px;font-weight:600;line-height:1.4;" +
+    "background:#fdf1f1;color:#a13333;border:1px solid #f0caca;}" +
+    ".form-notice--ok{background:#eef7ea;color:#4e7c3b;border-color:#cfe6c4;}";
+  document.head.appendChild(noticeStyle);
+
+  var noticeTimer = null;
+  function formNotice(msg, ok) {
+    // find the form panel currently visible, else fall back to body
+    var host = null;
+    var panels = [document.getElementById("panel-login"), document.getElementById("panel-register")];
+    panels.forEach(function (p) { if (p && !p.hidden) host = p.querySelector("form") || p; });
+    if (!host) { console.warn("[JIUCompass]", msg); return; }
+    var el = host.querySelector(".form-notice");
+    if (!el) {
+      el = document.createElement("div");
+      el.className = "form-notice";
+      el.setAttribute("role", "alert");
+      host.insertBefore(el, host.firstChild);
+    }
+    el.className = "form-notice" + (ok ? " form-notice--ok" : "");
+    el.textContent = msg;
+    if (noticeTimer) clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 4500);
+  }
+  window.toast = formNotice;
 
   /* ---------- Tabs (login / register) ---------- */
   var tabLogin = document.getElementById("tab-login");
@@ -176,8 +205,8 @@
       } catch(err) {}
     }
 
-    toast("Logged in — opening JIUCompass…");
-    setTimeout(function () { location.href = "app.html"; }, 900);
+    /* go straight to the dashboard — no artificial delay */
+    location.href = "app.html";
   });
 
   var registerForm = document.getElementById("registerForm");
@@ -201,7 +230,7 @@
         password: document.getElementById("regPass").value
       }));
     } catch(e) {}
-    toast("Verified! Setting up your campus…");
-    setTimeout(function () { location.href = "app.html"; }, 1100);
+    /* go straight to the dashboard — no artificial delay */
+    location.href = "app.html";
   });
 })();

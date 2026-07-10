@@ -54,7 +54,7 @@
     "Sinta Maharani":  "https://randomuser.me/api/portraits/women/44.jpg",
     "Bagas Pratama":   "https://randomuser.me/api/portraits/men/22.jpg",
     "Nadia Kusuma":    "https://randomuser.me/api/portraits/women/68.jpg",
-    "Farrel Wijaya":   "https://randomuser.me/api/portraits/men/45.jpg",
+    "Andreas Steven":  "https://avatars.githubusercontent.com/u/219260242?v=4",
     "Alya Rahmawati":  "https://randomuser.me/api/portraits/women/12.jpg",
     "Dimas Nugroho":   "https://randomuser.me/api/portraits/men/64.jpg",
     "Kirana Putri":    "https://randomuser.me/api/portraits/women/33.jpg",
@@ -80,7 +80,7 @@
     { name: "Sinta Maharani",  major: "Visual Communication Design", batch: "2026", birthday: "3 April",   tags: ["illustration","typography","coffee"] },
     { name: "Bagas Pratama",   major: "Accounting",                  batch: "2025", birthday: "17 June",   tags: ["startups","football","finance"] },
     { name: "Nadia Kusuma",    major: "English Literature",           batch: "2026", birthday: "21 August", tags: ["podcasts","writing","film"] },
-    { name: "Farrel Wijaya",   major: "IT",                          batch: "2024", birthday: "9 January",  tags: ["backend","chess","anime"] },
+    { name: "Andreas Steven",  major: "IT",                          batch: "2023", birthday: "10 July",   tags: ["basketball","music","coding"], link: "https://wa.me/+6285172041108?text=Hello,%20I%20found%20your%20number%20from%20JIUCompass" },
     { name: "Alya Rahmawati",  major: "Japanese Literature",          batch: "2025", birthday: "30 May",    tags: ["research","volunteering","music"] },
     { name: "Dimas Nugroho",   major: "Information Systems",          batch: "2026", birthday: "12 July",   tags: ["data","gaming","ui/ux"] },
     { name: "Kirana Putri",    major: "English Literature",           batch: "2023", birthday: "5 October", tags: ["debate","reading","tennis"] },
@@ -99,7 +99,7 @@
       type: "PDF", size: "12.5 MB", when: "Updated 3 days ago", catg: "Business", year: "2026", ic: "book" },
     { title: "Marketing Research Case Studies", course: "BUS230", by: "Rian H.", up: 56,
       type: "PDF", size: "8.1 MB", when: "Updated 1 month ago", catg: "Management", year: "2024", ic: "chart" },
-    { title: "Data Structures — full semester summary", course: "CS201", by: "Farrel Wijaya", up: 128,
+    { title: "Data Structures — full semester summary", course: "CS201", by: "Andreas Steven", up: 128,
       type: "PDF", size: "6.4 MB", when: "Updated 5 days ago", catg: "Comp Sci", year: "2024", ic: "code" },
     { title: "Calculus II past exam + worked answers", course: "MATH102", by: "Dimas Nugroho", up: 96,
       type: "PDF", size: "3.1 MB", when: "Updated 1 week ago", catg: "Core Course", year: "2026", ic: "doc" },
@@ -241,7 +241,10 @@
         esc(p.major) + " \u00B7 " + p.batch + "</span></div></div>" +
         '<div class="person__tags">' + p.tags.map(function (t) {
           return '<span class="idcard__tag">' + esc(t) + "</span>"; }).join("") + "</div>" +
-        '<button class="btn btn--solid" data-toast="Connection request sent to ' + esc(p.name) + ' (mock)">Connect</button></article>';
+        (p.link
+          ? '<a class="btn btn--solid" href="' + esc(p.link) + '" target="_blank" rel="noopener">Connect</a>'
+          : '<button class="btn btn--solid" data-toast="Connection request sent to ' + esc(p.name) + ' (mock)">Connect</button>') +
+        '</article>';
     }).join("") : '<div class="empty">No students match those filters.</div>';
   }
 
